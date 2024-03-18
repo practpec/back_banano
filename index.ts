@@ -3,7 +3,7 @@ import cors from 'cors';
 import UserRoute from './src/users/infrestructure/routes/user.router';
 import AuthRoute from './src/auth/infrestructure/routes/auth.router';
 import NoticionesRoute from './src/notificaciones/infrestructure/routes/notificacion.route';
-
+import RacimoRoute from './src/racimos/infrestructure/routes/racimo.route';
 
 const app = express();
 
@@ -19,6 +19,7 @@ app.use(express.json());
 app.use('/login', AuthRoute);
 app.use('/users', UserRoute);
 app.use('/notificaciones', NoticionesRoute);
+app.use('/racimos', RacimoRoute);
 
 app.listen(PORT, () => {
     console.log('Servidor corriendo en el puerto', PORT)
