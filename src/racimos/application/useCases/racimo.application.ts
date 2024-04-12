@@ -7,4 +7,12 @@ export class RacimoApplication {
     async createRacimo(racimos: Racimos): Promise<any> {
         return this.racimoRepository.createRacimo(racimos);
     }
+
+    async getAllRacimo(): Promise<Racimos[] | null> {
+        return this.racimoRepository.getAllRacimo();
+    }
+
+    async getDatos(dato: string): Promise<number[] | null> {
+        return  this.racimoRepository.getDatos(dato);
+    }
 }

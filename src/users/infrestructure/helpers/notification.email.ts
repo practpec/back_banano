@@ -8,10 +8,10 @@ export class NodemailerEmailService implements EmailService {
                 service: 'gmail',
                 auth: {
                     user: 'clientemanagerchtecnologia@gmail.com',
-                    pass: 'fkokdhsseqkbqzsz',
+                    pass: 'ehtsctkzkbfbazlu',
                 },
                 tls: {
-                    // ignorar la verificación del certificado
+                    // ignorar la verificación del certificado pass: fkokdhsseqkbqzsz
                     rejectUnauthorized: false 
                 }
             });

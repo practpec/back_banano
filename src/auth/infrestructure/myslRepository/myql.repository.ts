@@ -1,5 +1,4 @@
 import { query } from "../../../database/db.config";
-import { AuthRequest } from "../../dominio/entities/auth.Request";
 import { AuthUser } from "../../dominio/repository/auth.user";
 
 export class MysqlRepository implements AuthUser {

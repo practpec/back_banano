@@ -15,6 +15,7 @@ export class DeleteController {
         const  notificacionId: number = parseInt(req.params.id, 10);
         
         NotificacionAppService.deleteNotification(notificacionId);
+
         
         res.status(200).json({
             message: 'Se elimino correctamente la notificacion',
