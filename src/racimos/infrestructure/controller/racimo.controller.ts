@@ -12,22 +12,14 @@ export class RacimoController {
     static async createRacimo(req: Request, res: Response): Promise<any> {
     
         try {
-            const { temperatura , luz, humedad } = req.body;
-            const imagen = req.file;
-
-            if (!imagen) {
-                return res.status(400).json({
-                    error: 'No se proporcionó la imagen'
-                });
-            }
-
-            const imagenBinaria = imagen?.buffer.toString('base64');
+            const { temperatura , luz, humedad, imagen } = req.body;
+        
 
             const newRacimo: Racimos = {
                 temperatura: temperatura,
                 luz: luz,
                 humedad: humedad,
-                imagen: imagenBinaria
+                imagen: imagen
             }
             racimoAppService.createRacimo(newRacimo);
 

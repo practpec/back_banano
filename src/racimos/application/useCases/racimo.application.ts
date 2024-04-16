@@ -16,7 +16,4 @@ export class RacimoApplication {
         return await this.racimoRepository.getDatos(dato);
     }
 
-    async getImagen(): Promise<string[] | null> {
-        return await this.racimoRepository.getImagen()
-    }
     }

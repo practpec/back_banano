@@ -55,22 +55,4 @@ export class MysqlRepository implements RacimoRepository {
             throw new Error('Hubo un error al obtener los datos' + error)
         }
     }
-   // verificar la obtencio de imagen
-    getImagen = async(): Promise<string[] | null> => {
-        const sql = 'SELECT imagen FROM racimos';
-
-        try {
-            const [result]: any = await query(sql, []);
-            
-            const imagenesBase64: string[] = result.map((row: any) => {
-                
-            const imagenBase64 = Buffer.from(row.imagen).toString('base64');
-            return imagenBase64;
-            });
-            return imagenesBase64;    
-        } catch (error) {
-            console.log('Hubo un error al obtener la imagen', error);
-            throw new Error('Hubo un error al obtener la imagen');
-        }
-    }
 }

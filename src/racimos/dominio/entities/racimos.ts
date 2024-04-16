@@ -1,6 +1,6 @@
 export interface Racimos {
-    temperatura: string;
-    luz: string;
-    humedad: string;
+    temperatura: number;
+    luz: number;
+    humedad: number;
     imagen: string;
 }
