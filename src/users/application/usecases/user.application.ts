@@ -7,4 +7,8 @@ export class UserApplication {
     async createUser(user: User): Promise<any> {
         return await this.userRepository.createUser(user);
     }
+
+    async deleteUser(usercorreo: string): Promise<void> {
+        return await this.userRepository.deleteUser(usercorreo);
+    }
 }

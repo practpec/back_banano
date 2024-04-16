@@ -5,14 +5,18 @@ export class RacimoApplication {
     constructor (private  racimoRepository: RacimoRepository) {}
 
     async createRacimo(racimos: Racimos): Promise<any> {
-        return this.racimoRepository.createRacimo(racimos);
+        return  await this.racimoRepository.createRacimo(racimos);
     }
 
     async getAllRacimo(): Promise<Racimos[] | null> {
-        return this.racimoRepository.getAllRacimo();
+        return await this.racimoRepository.getAllRacimo();
     }
 
     async getDatos(dato: string): Promise<number[] | null> {
-        return  this.racimoRepository.getDatos(dato);
+        return await this.racimoRepository.getDatos(dato);
     }
-}
+
+    async getImagen(): Promise<string[] | null> {
+        return await this.racimoRepository.getImagen()
+    }
+    }

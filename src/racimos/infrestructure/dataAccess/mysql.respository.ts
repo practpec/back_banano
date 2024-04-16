@@ -4,7 +4,7 @@ import { RacimoRepository } from "../../dominio/respository/racimo.repository";
 
 
 export class MysqlRepository implements RacimoRepository {
-
+    
     createRacimo = async(racimos: Racimos): Promise<any> => {
         const sql = 'INSERT INTO racimos (temperatura, luz, humedad, imagen) VALUES (?, ?, ?, ?)';
         const params = [racimos.temperatura, racimos.luz, racimos.humedad, racimos.imagen];
@@ -51,8 +51,26 @@ export class MysqlRepository implements RacimoRepository {
             const datos: number[] = result.map((row: any) =>  row[dato]);
             return datos;
         } catch (error) {
-            console.log('Hubo un error al obtener los datos de la temperatura', error);
-            throw new Error('Hubo un error al obtener los datos de la temperatura' + error)
+            console.log('Hubo un error al obtener los datos', error);
+            throw new Error('Hubo un error al obtener los datos' + error)
+        }
+    }
+   // verificar la obtencio de imagen
+    getImagen = async(): Promise<string[] | null> => {
+        const sql = 'SELECT imagen FROM racimos';
+
+        try {
+            const [result]: any = await query(sql, []);
+            
+            const imagenesBase64: string[] = result.map((row: any) => {
+                
+            const imagenBase64 = Buffer.from(row.imagen).toString('base64');
+            return imagenBase64;
+            });
+            return imagenesBase64;    
+        } catch (error) {
+            console.log('Hubo un error al obtener la imagen', error);
+            throw new Error('Hubo un error al obtener la imagen');
         }
     }
 }

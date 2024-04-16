@@ -17,14 +17,14 @@ export class GetDatosController {
             const temperaturas = await racimoAppService.getDatos(dato);
 
             res.status(200).json({
-                message: 'Se obtuvieron correctamente los datos de temperatura',
+                message: 'Se obtuvieron correctamente los datos',
                 data: temperaturas
             });
             
         } catch (error) {
-            console.log('Hubo un error al obtener los datos de temperatura', error);
+            console.log('Hubo un error al obtener los datos', error);
             res.status(500).json({
-                message: 'Hubo un error al obtener los datos de temperatura'
+                message: 'Hubo un error al obtener los datos'
             })
         }
     }
