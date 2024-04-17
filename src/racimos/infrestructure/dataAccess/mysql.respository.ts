@@ -6,8 +6,8 @@ import { RacimoRepository } from "../../dominio/respository/racimo.repository";
 export class MysqlRepository implements RacimoRepository {
     
     createRacimo = async(racimos: Racimos): Promise<any> => {
-        const sql = 'INSERT INTO racimos (temperatura, luz, humedad, imagen) VALUES (?, ?, ?, ?)';
-        const params = [racimos.temperatura, racimos.luz, racimos.humedad, racimos.imagen];
+        const sql = 'INSERT INTO racimos (temperatura, luz, humedad) VALUES (?, ?, ?)';
+        const params = [racimos.temperatura, racimos.luz, racimos.humedad];
 
         try {
             const result = await query(sql, params);
@@ -20,7 +20,7 @@ export class MysqlRepository implements RacimoRepository {
 
 
     getAllRacimo = async(): Promise<Racimos[]> => {
-        const sql = 'SELECT id, fecha, temperatura, luz, humedad, imagen FROM racimos';
+        const sql = 'SELECT id, fecha, temperatura, luz, humedad FROM racimos';
 
         try {
             const [result]: any = await query(sql, []);
@@ -31,8 +31,7 @@ export class MysqlRepository implements RacimoRepository {
                     fecha: racimoData.fecha,
                     temperatura: racimoData.temperatura,
                     luz: racimoData.luz,
-                    humedad: racimoData.humedad,
-                    imagen: racimoData.imagen
+                    humedad: racimoData.humedad
                 };
             });
             return racimos;

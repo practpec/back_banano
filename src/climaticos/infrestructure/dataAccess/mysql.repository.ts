@@ -25,7 +25,7 @@ export class MysqlRepository implements ClimaticoRepository {
     }
 
     getClimaticoHumedad = async(): Promise<Climaticos[]> => {
-        const sql = 'SELECT od, humedad_max, humedad_min FROM DatosClimaticos';
+        const sql = 'SELECT id, humedad_max, humedad_min FROM DatosClimaticos';
 
         try {
             const [result]: any = await query(sql, []);

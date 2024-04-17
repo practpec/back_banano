@@ -5,7 +5,7 @@ import { verifyToken } from '../../../auth/application/middleware/jwt.middleware
 
 export const router = express.Router();
 
-router.post('/', UserController.createUser);
-router.delete('/:correo', DeleteController.deleteUser);
+router.post('/', verifyToken, UserController.createUser);
+router.delete('/:correo', verifyToken, DeleteController.deleteUser);
 
 export default router;

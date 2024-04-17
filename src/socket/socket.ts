@@ -1,26 +1,63 @@
+// Servidor
 import WebSocket from 'ws';
 import http from 'http';
+import { RacimoApplication } from "../racimos/application/useCases/racimo.application";
+import { MysqlRepository } from "../racimos/infrestructure/dataAccess/mysql.respository";
+import { Racimos } from '../racimos/dominio/entities/racimos';
 
 const server = http.createServer();
 const wss = new WebSocket.Server({ port: 4000 });
 
-export const clients: Set<WebSocket> = new Set();
+const mysqlRepository = new MysqlRepository();
+const racimoAppService = new RacimoApplication(mysqlRepository);
 
-// Conexión con WebSocket
+async function obtenerTodosLosRacimos(): Promise<Racimos[] | null> {
+    try {
+        const racimos = await racimoAppService.getAllRacimo();
+        return racimos;
+    } catch (error) {
+        console.error('Hubo un error al obtener los racimos', error);
+        throw new Error('Hubo un error al obtener los racimos');
+    }
+}
+
 function conectarWebSocket(): void {
     wss.on('connection', (ws: WebSocket) => {
         console.log('Nuevo cliente conectado con WebSocket');
 
-        clients.add(ws);
-
         ws.on('close', () => {
             console.log('Cliente desconectado de WebSocket');
-            clients.delete(ws);
         });
+
+        // Llama a la función para obtener y emitir datos después de que se establezca la conexión WebSocket
+        obtenerYEnviarDatos(ws);
     });
 }
 
-// Desconexión de WebSocket
+async function obtenerYEnviarDatos(ws: WebSocket): Promise<void> {
+    try {
+        const racimos = await obtenerTodosLosRacimos(); // Obtener datos desde la base de datos
+
+        if (ws && ws.readyState === WebSocket.OPEN) {
+            
+            const dataToSend = JSON.stringify(racimos);
+            ws.send(dataToSend);
+        } else {
+            console.error('El WebSocket no está disponible o no está abierto');
+        }
+    } catch (error) {
+        console.error('Error al obtener datos desde la base de datos:', error);
+    }
+}
+
+setInterval(() => {
+    wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+            obtenerYEnviarDatos(client);
+        }
+    });
+}, 1000);
+
 function desconectarWebSocket(): void {
     wss.close(() => {
         console.log('Servidor WebSocket desconectado');
