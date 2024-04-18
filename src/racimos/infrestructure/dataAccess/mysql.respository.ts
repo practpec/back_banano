@@ -20,7 +20,7 @@ export class MysqlRepository implements RacimoRepository {
 
 
     getAllRacimo = async(): Promise<Racimos[]> => {
-        const sql = 'SELECT id, fecha, temperatura, luz, humedad FROM racimos';
+        const sql = 'SELECT id, fecha, temperatura, luz, humedad, distancia FROM racimos';
 
         try {
             const [result]: any = await query(sql, []);
@@ -31,7 +31,8 @@ export class MysqlRepository implements RacimoRepository {
                     fecha: racimoData.fecha,
                     temperatura: racimoData.temperatura,
                     luz: racimoData.luz,
-                    humedad: racimoData.humedad
+                    humedad: racimoData.humedad,
+                    distancia: racimoData.distancia
                 };
             });
             return racimos;
