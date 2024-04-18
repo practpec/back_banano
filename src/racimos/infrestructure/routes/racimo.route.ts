@@ -7,8 +7,8 @@ import { verifyToken } from '../../../auth/application/middleware/jwt.middleware
 export const router = express.Router();
 
 router.post('/', RacimoController.createRacimo);
-router.get('/:dato', GetDatosController.getDatos);
-router.get('/', GetAllController.getAllRacimo);
+router.get('/:dato', verifyToken, GetDatosController.getDatos);
+router.get('/', verifyToken, GetAllController.getAllRacimo);
 
 
 export default router;

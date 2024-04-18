@@ -12,13 +12,14 @@ export class RacimoController {
     static async createRacimo(req: Request, res: Response): Promise<any> {
     
         try {
-            const { temperatura , luz, humedad, imagen } = req.body;
+            const { temperatura , luz, humedad, distancia, imagen } = req.body;
         
 
             const newRacimo: Racimos = {
                 temperatura: temperatura,
                 luz: luz,
                 humedad: humedad,
+                distancia: distancia,
                 imagen: imagen
             }
             racimoAppService.createRacimo(newRacimo);

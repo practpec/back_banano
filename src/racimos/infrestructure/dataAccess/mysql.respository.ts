@@ -6,8 +6,8 @@ import { RacimoRepository } from "../../dominio/respository/racimo.repository";
 export class MysqlRepository implements RacimoRepository {
     
     createRacimo = async(racimos: Racimos): Promise<any> => {
-        const sql = 'INSERT INTO racimos (temperatura, luz, humedad) VALUES (?, ?, ?)';
-        const params = [racimos.temperatura, racimos.luz, racimos.humedad];
+        const sql = 'INSERT INTO racimos (temperatura, luz, humedad, distancia) VALUES (?, ?, ?, ?)';
+        const params = [racimos.temperatura, racimos.luz, racimos.humedad, racimos.distancia];
 
         try {
             const result = await query(sql, params);

@@ -36,7 +36,7 @@ export class NodemailerEmailService implements EmailService {
             const body = `
                 <div style="font-family: Arial, sans-serif;">
                     <h3>Bienvenido/a, ${nombre}</h3>
-                    <h3>Usted se ha sido registrado como un nuevo adminitrador del software bananoTrack</h3>
+                    <h3>Usted se ha sido registrado como un nuevo usuario del software bananoTrack</h3>
                     <p>Su cuenta ha sido creada exitosamente en nuestro sistema.</p>
                     <p>Gracias por registrarse.</p>
                 </div>

@@ -56,7 +56,7 @@ setInterval(() => {
             obtenerYEnviarDatos(client);
         }
     });
-}, 1000);
+}, 10000);
 
 function desconectarWebSocket(): void {
     wss.close(() => {
