@@ -164,3 +164,75 @@ function desconectarWebSocket(): void {
 
 // Llama a la función para obtener y enviar datos cada cierto intervalo de tiempo
 setInterval(obtenerYEnviarDatos, 5000); // Por ejemplo, cada 5 segundos
+
+
+
+
+
+
+import WebSocket from "ws";
+import http from 'http';
+import jwt from 'jsonwebtoken';
+import { obtenerTodosLosRacimos } from "../service/optener.racimos";
+import { SECRET_JWT } from "../../auth/dominio/constants/secret";
+
+const secretKey = SECRET_JWT; 
+
+const server = http.createServer();
+const wss = new WebSocket.Server({port: 4000});
+
+function conectarWebSocket(): void {
+    wss.on('connection', (ws: WebSocket) => {
+        const token = req.headers.authorization;
+
+    // Verificar el token
+    jwt.verify(token, secretKey, (err: any, decoded: any) => {
+        if (err) {
+            // Si hay un error al verificar el token, cerrar la conexión
+            console.error('Error al verificar el token:', err);
+            ws.close();
+        } else {
+            // Si el token es válido, puedes acceder a la información decodificada en 'decoded'
+            console.log('Token verificado:', decoded);
+            // Resto de la lógica de manejo de conexión
+        }
+    });
+
+        // Llama a la función para obtener y emitir datos después de que se establezca la conexión WebSocket
+        obtenerYEnviarDatos(ws);
+    });
+}
+
+
+async function obtenerYEnviarDatos(ws: WebSocket): Promise<void> {
+    try {
+        const racimos = await obtenerTodosLosRacimos(); // Obtener datos desde la base de datos
+
+        if (ws && ws.readyState === WebSocket.OPEN) {
+            
+            const dataToSend = JSON.stringify(racimos);
+            ws.send(dataToSend);
+        } else {
+            console.error('El WebSocket no está disponible o no está abierto');
+        }
+    } catch (error) {
+        console.error('Error al obtener datos desde la base de datos:', error);
+    }
+}
+
+setInterval(() => {
+    wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+            obtenerYEnviarDatos(client);
+        }
+    });
+}, 10000);
+
+function desconectarWebSocket(): void {
+    wss.close(() => {
+        console.log('Servidor WebSocket desconectado');
+    });
+}
+
+
+export { server, wss, conectarWebSocket, desconectarWebSocket};

@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { conectarWebSocket } from './src/socket/socket';
+import { conectarWebSocket } from './src/socket/connecction/conecction';
 import UserRoute from './src/users/infrestructure/routes/user.router';
 import AuthRoute from './src/auth/infrestructure/routes/auth.router';
 import NoticionesRoute from './src/notificaciones/infrestructure/routes/notificacion.route';
@@ -28,4 +28,5 @@ app.listen(PORT, () => {
     console.log('Servidor corriendo en el puerto', PORT)
 })
 
-conectarWebSocket();
+
+conectarWebSocket()
