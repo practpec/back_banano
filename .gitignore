@@ -1,2 +1,20 @@
+# Dependencias existentes
 node_modules/
 .env
+
+# Testing - NUEVAS LÍNEAS
+coverage/
+*.log
+.nyc_output/
+tests/temp/
+jest.config.js
+*.test.js
+*.spec.js
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+logs/
+*.log
